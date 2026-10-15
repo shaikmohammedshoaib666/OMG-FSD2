@@ -151,6 +151,22 @@ CREATE TABLE feedback (
    - Wait for Tomcat to start
    - Browser will open automatically to: `http://localhost:8080/fsd2-web/`
 
+### Database Table Setup
+
+The web application requires two tables in Oracle. Run these Java programs to create them:
+
+1. **Create students table**:
+   - Open `fsd2-jdbc-maven/src/main/java/Dbconn/StudentCRUD.java`
+   - Run it (creates students table with test data)
+
+2. **Add year column** (if needed):
+   - Open `fsd2-jdbc-maven/src/main/java/Dbconn/AddYearColumn.java`
+   - Run it (adds missing year column to students table)
+
+3. **Create feedback table** (for mini project):
+   - Open `fsd2-jdbc-maven/src/main/java/Dbconn/CreateFeedbackTable.java`
+   - Run it (creates feedback table)
+
 ## 🌐 Accessing the Application
 
 ### Main Page
