@@ -16,6 +16,7 @@ public class DisplayRecordsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        String contextPath = req.getContextPath();
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
 
@@ -39,7 +40,7 @@ public class DisplayRecordsServlet extends HttpServlet {
         } catch (Exception e) {
             out.println("<p style='color:red'>Error: " + e.getMessage() + "</p>");
         }
-        out.println("<br/><a href='crud'>Go to CRUD page</a>");
+        out.println("<br/><a href='" + contextPath + "/crud'>Go to CRUD page</a>");
         out.println("</body></html>");
     }
 }

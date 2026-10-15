@@ -28,6 +28,7 @@ public class DashboardServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         String role = (String) session.getAttribute("role");
         boolean isAdmin = "admin".equals(role);
+        String contextPath = req.getContextPath();
 
         out.println("<html><head><title>Dashboard</title>");
         out.println("<style>body{font-family:Arial;margin:40px;background:#f5f5f5}");
@@ -37,16 +38,16 @@ public class DashboardServlet extends HttpServlet {
         out.println("<h2>Dashboard</h2>");
         out.println("<p>Logged in as: <b>" + username + "</b> | Role: " + role + "</p>");
         out.println("<hr/><h3>Menu:</h3><ul>");
-        out.println("<li><a href='records'>View Student Records</a></li>");
-        out.println("<li><a href='insert-student'>Insert New Student</a></li>");
-        out.println("<li><a href='crud'>CRUD Operations</a></li>");
-        out.println("<li><a href='submit-feedback'>Submit Feedback</a></li>");
+        out.println("<li><a href='" + contextPath + "/records'>View Student Records</a></li>");
+        out.println("<li><a href='" + contextPath + "/insert-student'>Insert New Student</a></li>");
+        out.println("<li><a href='" + contextPath + "/crud'>CRUD Operations</a></li>");
+        out.println("<li><a href='" + contextPath + "/submit-feedback'>Submit Feedback</a></li>");
 
         if (isAdmin) {
-            out.println("<li><a href='admin-feedback'><b>View All Feedback (Admin)</b></a></li>");
+            out.println("<li><a href='" + contextPath + "/admin-feedback'><b>View All Feedback (Admin)</b></a></li>");
         }
 
-        out.println("</ul><br/><a href='logout'>Logout</a>");
+        out.println("</ul><br/><a href='" + contextPath + "/logout'>Logout</a>");
         out.println("</div></body></html>");
     }
 }

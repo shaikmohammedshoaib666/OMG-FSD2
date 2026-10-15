@@ -35,16 +35,18 @@ public class LoginServlet extends HttpServlet {
                         HttpSession session = req.getSession();
                         session.setAttribute("username", rs.getString("username"));
                         session.setAttribute("role", rs.getString("role"));
+                        String contextPath = req.getContextPath();
                         out.println("<html><body>");
                         out.println("<h2 style='color:green'>Login Successful!</h2>");
                         out.println("<p>Welcome, <b>" + rs.getString("username") + "</b> (Role: " + rs.getString("role") + ")</p>");
-                        out.println("<a href='dashboard'>Go to Dashboard</a> | <a href='logout'>Logout</a>");
+                        out.println("<a href='" + contextPath + "/dashboard'>Go to Dashboard</a> | <a href='" + contextPath + "/logout'>Logout</a>");
                         out.println("</body></html>");
                     } else {
+                        String contextPath = req.getContextPath();
                         out.println("<html><body>");
                         out.println("<h2 style='color:red'>Login Failed!</h2>");
                         out.println("<p>Invalid username or password.</p>");
-                        out.println("<a href='login.html'>Try Again</a>");
+                        out.println("<a href='" + contextPath + "/login.html'>Try Again</a>");
                         out.println("</body></html>");
                     }
                 }

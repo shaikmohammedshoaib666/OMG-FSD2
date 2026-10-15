@@ -18,6 +18,7 @@ public class CrudServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = req.getParameter("action");
         if (action == null) action = "list";
+        String contextPath = req.getContextPath();
 
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
@@ -44,7 +45,7 @@ public class CrudServlet extends HttpServlet {
                     while (rs.next()) {
                         out.println("<tr><td>" + rs.getInt("id") + "</td><td>" + rs.getString("name")
                                 + "</td><td>" + rs.getString("branch") + "</td><td>" + rs.getInt("year")
-                                + "</td><td><a href='crud?action=delete&id=" + rs.getInt("id") + "'>Delete</a></td></tr>");
+                                + "</td><td><a href='" + contextPath + "/crud?action=delete&id=" + rs.getInt("id") + "'>Delete</a></td></tr>");
                     }
                 }
                 out.println("</table>");
@@ -54,7 +55,7 @@ public class CrudServlet extends HttpServlet {
         }
 
         out.println("<h3>Insert New Student</h3>");
-        out.println("<form method='post' action='crud'>");
+        out.println("<form method='post' action='" + contextPath + "/crud'>");
         out.println("ID: <input name='id' type='number'/><br/><br/>");
         out.println("Name: <input name='name'/><br/><br/>");
         out.println("Branch: <input name='branch'/><br/><br/>");
@@ -62,7 +63,7 @@ public class CrudServlet extends HttpServlet {
         out.println("<input type='submit' value='Insert'/></form>");
 
         out.println("<h3>Update Student Branch</h3>");
-        out.println("<form method='post' action='crud'>");
+        out.println("<form method='post' action='" + contextPath + "/crud'>");
         out.println("<input type='hidden' name='action' value='update'/>");
         out.println("Student ID: <input name='id' type='number'/><br/><br/>");
         out.println("New Branch: <input name='branch'/><br/><br/>");

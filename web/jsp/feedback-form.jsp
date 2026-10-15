@@ -2,11 +2,12 @@
 <%
     HttpSession ses = request.getSession(false);
     if (ses == null || ses.getAttribute("username") == null) {
-        response.sendRedirect("../login.html");
+        response.sendRedirect(request.getContextPath() + "/login.html");
         return;
     }
     String username = (String) ses.getAttribute("username");
     String msg = (String) request.getAttribute("message");
+    String contextPath = request.getContextPath();
 %>
 <html>
 <head><title>Submit Feedback</title>
@@ -25,15 +26,15 @@
 </head>
 <body>
 <div class="nav">
-    <a href="../dashboard">Dashboard</a>
-    <a href="../logout">Logout (<%= username %>)</a>
+    <a href="<%= contextPath %>/dashboard">Dashboard</a>
+    <a href="<%= contextPath %>/logout">Logout (<%= username %>)</a>
 </div>
 <div class="container">
     <h2>Submit Feedback</h2>
     <% if (msg != null) { %>
         <p class="success"><%= msg %></p>
     <% } %>
-    <form method="post" action="../submit-feedback">
+    <form method="post" action="<%= contextPath %>/submit-feedback">
         <label>Student Name:</label>
         <input type="text" name="studentName" required/>
 

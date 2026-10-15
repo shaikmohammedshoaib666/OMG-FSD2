@@ -16,10 +16,11 @@ public class InsertStudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        String contextPath = req.getContextPath();
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
         out.println("<html><body><h2>Add New Student</h2>");
-        out.println("<form method='post' action='insert-student'>");
+        out.println("<form method='post' action='" + contextPath + "/insert-student'>");
         out.println("ID: <input name='id' type='number' required/><br/><br/>");
         out.println("Name: <input name='name' required/><br/><br/>");
         out.println("Branch: <input name='branch' required/><br/><br/>");
@@ -35,6 +36,7 @@ public class InsertStudentServlet extends HttpServlet {
         String name = req.getParameter("name");
         String branch = req.getParameter("branch");
         int year = Integer.parseInt(req.getParameter("year"));
+        String contextPath = req.getContextPath();
 
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
@@ -48,13 +50,15 @@ public class InsertStudentServlet extends HttpServlet {
                 ps.setString(3, branch);
                 ps.setInt(4, year);
                 ps.executeUpdate();
+                String contextPath = req.getContextPath();
                 out.println("<html><body><h2 style='color:green'>Student inserted successfully!</h2>");
                 out.println("<p>" + name + " added to database.</p>");
             }
         } catch (Exception e) {
             out.println("<html><body><h2 style='color:red'>Error: " + e.getMessage() + "</h2>");
         }
-        out.println("<a href='insert-student'>Insert Another</a> | <a href='records'>View All</a>");
+        String contextPath = req.getContextPath();
+        out.println("<a href='" + contextPath + "/insert-student'>Insert Another</a> | <a href='" + contextPath + "/records'>View All</a>");
         out.println("</body></html>");
     }
 }
