@@ -8,6 +8,7 @@ out/
 
 # Build artifacts
 target/
+fsd2-jdbc-maven/target/
 
 # OS files
 .DS_Store

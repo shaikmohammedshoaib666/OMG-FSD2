@@ -4,12 +4,20 @@ A full-stack web application built with Java Servlets, JSP, and Oracle Database 
 
 ## 📋 Project Overview
 
-This project includes:
+This repository includes FSD2 course work:
+
+### 1. Web Application (fsd2-web/)
 - **Servlet-based web application** with JDBC connectivity
 - **Student Feedback System** (Mini Project)
 - Session management and role-based access control
 - JSP pages with JavaBeans
 - CRUD operations on Oracle database
+
+### 2. JDBC Programs (fsd2-jdbc-maven/)
+- Maven-based Java JDBC programs
+- 16 programs for Oracle and MySQL
+- CRUD operations, PreparedStatements, dynamic input
+- See `fsd2-jdbc-maven/JDBC_README.md` for details
 
 ## 🚀 Mini Project: Student Feedback System
 
@@ -41,8 +49,15 @@ This project includes:
 ## 📁 Project Structure
 
 ```
-fsd2-web/
-├── src/
+OMG-FSD2/
+├── fsd2-jdbc-maven/      # JDBC Programs (Maven)
+│   ├── src/
+│   │   └── main/
+│   │       └── java/
+│   │           └── Dbconn/ # All JDBC programs
+│   ├── pom.xml           # Maven dependencies
+│   └── JDBC_README.md    # JDBC documentation
+├── src/                  # Web Application
 │   ├── servlets/          # All servlet classes
 │   │   ├── LoginServlet.java
 │   │   ├── LogoutServlet.java
