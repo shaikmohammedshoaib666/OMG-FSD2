@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Oracle Database Container
+  oracle-db:
+    image: gvenzl/oracle-xe:21-slim-faststart
+    container_name: oracle-xe
+    environment:
+      - ORACLE_PASSWORD=system
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "sqlplus", "-s", "system/system@localhost:1521/FREEPDB1", "AS SYSDBA", "SELECT 1 FROM DUAL;"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - fsd2-network
+
+  # Tomcat + Web Application Container
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fsd2-webapp
+    ports:
+      - "8080:8080"
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=oracle-db
+      - DB_PORT=1521
+      - DB_SERVICE=FREEPDB1
+      - DB_USER=system
+      - DB_PASSWORD=system
+    networks:
+      - fsd2-network
+
+volumes:
+  oracle-data:
+
+networks:
+  fsd2-network:
+    driver: bridge

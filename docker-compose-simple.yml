@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Oracle Database Container
+  oracle-db:
+    image: gvenzl/oracle-xe:21-slim-faststart
+    container_name: oracle-xe
+    environment:
+      - ORACLE_PASSWORD=system
+    ports:
+      - "1521:1521"
+    networks:
+      - fsd2-network
+
+  # Tomcat + Web Application Container
+  webapp:
+    image: tomcat:9.0-jdk21
+    container_name: fsd2-webapp
+    ports:
+      - "8080:8080"
+    depends_on:
+      - oracle-db
+    volumes:
+      - ./web:/usr/local/tomcat/webapps/ROOT
+      - ./src:/usr/local/tomcat/webapps/WEB-INF/classes
+      - ./lib/ojdbc11.jar:/usr/local/tomcat/lib/ojdbc11.jar
+    networks:
+      - fsd2-network
+
+networks:
+  fsd2-network:
+    driver: bridge

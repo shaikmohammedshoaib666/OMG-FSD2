@@ -12,8 +12,9 @@ public class AdminFeedbackServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = req.getSession(false);
+        String contextPath = req.getContextPath();
         if (session == null || !"admin".equals(session.getAttribute("role"))) {
-            resp.sendRedirect("login.html");
+            resp.sendRedirect(contextPath + "/login.html");
             return;
         }
         req.getRequestDispatcher("/jsp/admin-dashboard.jsp").forward(req, resp);

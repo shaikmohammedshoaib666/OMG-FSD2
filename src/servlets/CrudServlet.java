@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CrudServlet extends HttpServlet {
-    private static final String URL = "jdbc:oracle:thin:@localhost:1521/FREEPDB1";
-    private static final String USER = "shoaib";
-    private static final String PASS = "system";
+    private static final String URL = DbConfig.getUrl();
+    private static final String USER = DbConfig.getDbUser();
+    private static final String PASS = DbConfig.getDbPassword();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
