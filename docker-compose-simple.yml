@@ -4,11 +4,11 @@ services:
   # Oracle Database Container
   oracle-db:
     image: gvenzl/oracle-xe:21-slim-faststart
-    container_name: oracle-xe
+    container_name: oracle-xe-fsd2
     environment:
       - ORACLE_PASSWORD=system
     ports:
-      - "1521:1521"
+      - "1522:1521"
     networks:
       - fsd2-network
 
@@ -17,9 +17,15 @@ services:
     image: tomcat:9.0-jdk21
     container_name: fsd2-webapp
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - oracle-db
+    environment:
+      - DB_HOST=oracle-db
+      - DB_PORT=1521
+      - DB_SERVICE=FREEPDB1
+      - DB_USER=system
+      - DB_PASSWORD=system
     volumes:
       - ./web:/usr/local/tomcat/webapps/ROOT
       - ./src:/usr/local/tomcat/webapps/WEB-INF/classes

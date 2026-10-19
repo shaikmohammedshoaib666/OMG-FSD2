@@ -1,77 +1,94 @@
 # Instructions for Your Friend to Run This Project
 
-## What Your Friend Needs (Only 1 Thing)
+## What Your Friend Needs
 
-**Docker Desktop** - Download from: https://www.docker.com/products/docker-desktop
+**Option 1: Reliable (Recommended)**
+- IntelliJ IDEA Community Edition (free)
+- Java 21
+- Docker Desktop (for Oracle database only)
+- Tomcat 9
 
-That's it! No IntelliJ, no Tomcat, no Oracle installation needed.
+**Option 2: Docker-Only (Advanced)**
+- Docker Desktop only
+- ⚠️ Note: Oracle image is very large (several GB), first download can take 10-20 minutes or timeout
 
 ---
 
-## Step-by-Step Instructions
+## Option 1: Reliable Method (IntelliJ + Docker for Oracle)
 
 ### Step 1: Clone the Repository
-Open terminal (Command Prompt/PowerShell on Windows, Terminal on Mac/Linux) and run:
-
 ```bash
 git clone https://github.com/shaikmohammedshoaib666/OMG-FSD2.git
 cd OMG-FSD2/fsd2-web
 ```
 
-### Step 2: Make Sure Docker is Running
-- Open Docker Desktop application
-- Wait for it to start (you'll see the Docker icon in the menu bar/taskbar)
-- Make sure it says "Docker Desktop is running"
+### Step 2: Start Oracle Database (Docker)
+```bash
+docker start oracle-xe
+```
+If Oracle container doesn't exist:
+```bash
+docker run -d --name oracle-xe -p 1521:1521 -e ORACLE_PASSWORD=system gvenzl/oracle-xe:21-slim-faststart
+```
 
-### Step 3: Run the Project
-In the same terminal, run:
+### Step 3: Create Database Tables
+Open IntelliJ IDEA:
+- File → Open → OMG-FSD2/fsd2-web
+- Open `fsd2-jdbc-maven/src/main/java/Dbconn/StudentCRUD.java`
+- Right-click → Run
+- Open `AddYearColumn.java` → Run
+- Open `CreateFeedbackTable.java` → Run
 
+### Step 4: Configure Tomcat in IntelliJ
+- IntelliJ IDEA → Settings → Build, Execution, Deployment → Application Servers
+- Click + → Tomcat Server
+- Set Tomcat Home to Tomcat 9 folder
+- Download Tomcat 9: https://tomcat.apache.org/download-90.cgi
+
+### Step 5: Run the Application
+- In IntelliJ, select "FSD2 Tomcat" from dropdown
+- Click green ▶ Run button
+- Browser opens to: `http://localhost:8080/fsd2-web/`
+
+### Step 6: Login
+- Student: `shoaib` / `system`
+- Admin: `admin` / `admin123`
+
+---
+
+## Option 2: Docker-Only Method (Advanced)
+
+⚠️ **Warning**: Oracle image is several GB and can timeout on slow connections
+
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/shaikmohammedshoaib666/OMG-FSD2.git
+cd OMG-FSD2/fsd2-web
+```
+
+### Step 2: Run Docker Compose
 ```bash
 docker-compose -f docker-compose-simple.yml up
 ```
 
-**What happens:**
-- Docker downloads Oracle Database (first time: 5-10 minutes)
-- Docker downloads Tomcat (first time: 2-3 minutes)
-- Docker starts both containers
-- Docker links them together
-- Your web application starts
+This will:
+- Download Oracle XE (several GB, can take 10-20 minutes)
+- Download Tomcat
+- Start both containers
+- Run the application
 
-### Step 4: Wait for It to Start
-Wait 1-2 minutes. You'll see messages like:
-- "oracle-xe is up-to-date"
-- "fsd2-webapp is up-to-date"
-- "Listening on port 8080"
-
-### Step 5: Open in Browser
-Open your web browser and go to:
-
+### Step 3: Open Browser
 ```
-http://localhost:8080/
+http://localhost:8081/
 ```
 
-### Step 6: Login
+Note: Port is 8081 (not 8080) to avoid conflicts
 
-**For Student Login:**
-- Username: `shoaib`
-- Password: `system`
+### Step 4: Login
+- Student: `shoaib` / `system`
+- Admin: `admin` / `admin123`
 
-**For Admin Login:**
-- Username: `admin`
-- Password: `admin123`
-
-### Step 7: Explore
-Once logged in, you can:
-- View student records
-- Add new students
-- Perform CRUD operations
-- Submit feedback (if student)
-- View all feedback (if admin)
-
-### Step 8: Stop When Done
-Go back to terminal and press `Ctrl+C` to stop everything.
-
-Or run:
+### Step 5: Stop
 ```bash
 docker-compose -f docker-compose-simple.yml down
 ```
@@ -80,75 +97,70 @@ docker-compose -f docker-compose-simple.yml down
 
 ## Database Information
 
-**Database:** Oracle XE (runs in Docker container)
-**Host:** oracle-db (Docker internal name)
-**Port:** 1521
-**Service:** FREEPDB1
+**Database:** Oracle XE
 **User:** system
 **Password:** system
+**Port:** 1521
+**Service:** FREEPDB1
 
-**Note:** You don't need to configure this - Docker handles it automatically!
+---
+
+## Why Option 1 is Recommended
+
+Option 1 (IntelliJ + Docker for Oracle only) is more reliable because:
+- ✅ Faster (Oracle already downloaded locally)
+- ✅ No timeout issues
+- ✅ Easier to debug if something goes wrong
+- ✅ Can see logs in IntelliJ
+- ✅ Standard development approach
+
+Option 2 (Docker-only) has issues:
+- ❌ Oracle image is very large (several GB)
+- ❌ First download can timeout on slow internet
+- ❌ Harder to debug issues
+- ❌ Port conflicts possible
 
 ---
 
 ## Troubleshooting
 
-### "Docker is not running"
-- Open Docker Desktop application
-- Wait for it to start
-- Try the command again
+### Option 1 Issues
 
-### "Port 8080 is already in use"
-- Stop other applications using port 8080
-- Or change the port in docker-compose-simple.yml
+**Tomcat doesn't start**
+- Check Tomcat path in IntelliJ settings
+- Make sure Docker is running: `docker ps`
 
-### "Cannot connect to database"
-- Wait 30-60 seconds after starting
-- Oracle needs time to initialize
-- Try refreshing the browser
+**Database connection error**
+- Start Oracle: `docker start oracle-xe`
+- Wait 30 seconds for Oracle to initialize
+- Run table creation programs first
 
-### First run is slow
-- Docker is downloading images (Oracle + Tomcat)
-- First run takes 5-10 minutes
-- Subsequent runs are fast (images already downloaded)
+### Option 2 Issues
+
+**Download timeout**
+- Use Option 1 instead (more reliable)
+- Oracle image is too large for slow connections
+
+**Port already in use**
+- Change ports in docker-compose-simple.yml
+- Stop other applications using those ports
 
 ---
 
 ## What Your Friend Will See
 
-When they open `http://localhost:8080/`, they'll see:
-- FSD2 Full Stack Development Labs
-- Links to all labs and the mini project
-- Working student feedback system
+Working application with:
+- Student login and feedback submission
+- Admin login and feedback viewing
+- CRUD operations on students
 - All features fully functional
 
 ---
 
-## Important Notes
+## Recommendation
 
-- **No installation needed** - Docker handles everything
-- **No configuration needed** - All settings are in docker-compose.yml
-- **No IntelliJ needed** - Runs directly in browser
-- **No Tomcat needed** - Tomcat runs in Docker container
-- **No Oracle needed** - Oracle runs in Docker container
-
----
-
-## After They're Done
-
-To completely clean up:
-```bash
-docker-compose -f docker-compose-simple.yml down
-docker volume rm fsd2-web_oracle-data
-```
-
-This removes all containers and data.
-
----
-
-## Need Help?
-
-If they have issues:
-1. Make sure Docker Desktop is running
-2. Make sure they cloned the correct folder
-3. Check the DOCKER_SETUP.md file for more details
+**Use Option 1** (IntelliJ + Docker for Oracle). It's:
+- More reliable
+- Faster
+- Easier to debug
+- Standard development approach
