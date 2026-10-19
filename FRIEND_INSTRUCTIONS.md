@@ -50,6 +50,8 @@ Open IntelliJ IDEA:
 - Click green ▶ Run button
 - Browser opens to: `http://localhost:8080/fsd2-web/`
 
+Note: All URLs include `/fsd2-web/` context path
+
 ### Step 6: Login
 - Student: `shoaib` / `system`
 - Admin: `admin` / `admin123`
