@@ -39,5 +39,22 @@
     <servlet><servlet-name>AdminFeedbackServlet</servlet-name><servlet-class>servlets.AdminFeedbackServlet</servlet-class></servlet>
     <servlet-mapping><servlet-name>AdminFeedbackServlet</servlet-name><url-pattern>/admin-feedback</url-pattern></servlet-mapping>
 
+    <servlet><servlet-name>ProfileServlet</servlet-name><servlet-class>servlets.ProfileServlet</servlet-class></servlet>
+    <servlet-mapping><servlet-name>ProfileServlet</servlet-name><url-pattern>/profile</url-pattern></servlet-mapping>
+
+    <!-- Case Study 12: Internship Application Tracker -->
+    <servlet><servlet-name>CSLogin</servlet-name><servlet-class>casestudy.LoginServlet</servlet-class></servlet>
+    <servlet-mapping><servlet-name>CSLogin</servlet-name><url-pattern>/cs/login</url-pattern></servlet-mapping>
+    <servlet><servlet-name>CSRegister</servlet-name><servlet-class>casestudy.RegisterServlet</servlet-class></servlet>
+    <servlet-mapping><servlet-name>CSRegister</servlet-name><url-pattern>/cs/register</url-pattern></servlet-mapping>
+    <servlet><servlet-name>CSHome</servlet-name><servlet-class>casestudy.HomeServlet</servlet-class></servlet>
+    <servlet-mapping><servlet-name>CSHome</servlet-name><url-pattern>/cs/home</url-pattern></servlet-mapping>
+    <servlet><servlet-name>CSInternship</servlet-name><servlet-class>casestudy.InternshipServlet</servlet-class></servlet>
+    <servlet-mapping><servlet-name>CSInternship</servlet-name><url-pattern>/cs/internships</url-pattern></servlet-mapping>
+    <servlet><servlet-name>CSCoord</servlet-name><servlet-class>casestudy.CoordinatorServlet</servlet-class></servlet>
+    <servlet-mapping><servlet-name>CSCoord</servlet-name><url-pattern>/cs/coord</url-pattern></servlet-mapping>
+    <servlet><servlet-name>CSLogout</servlet-name><servlet-class>casestudy.LogoutServlet</servlet-class></servlet>
+    <servlet-mapping><servlet-name>CSLogout</servlet-name><url-pattern>/cs/logout</url-pattern></servlet-mapping>
+
     <welcome-file-list><welcome-file>index.html</welcome-file></welcome-file-list>
 </web-app>

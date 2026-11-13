@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Internship Tracker - Login</title>
+<style>
+body{font-family:Arial;margin:0;background:#f0f4f8;display:flex;justify-content:center;padding-top:60px}
+.card{background:#fff;padding:35px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.1);width:380px}
+h2{color:#1a5276;text-align:center;margin-top:0}
+input{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:5px;box-sizing:border-box}
+button{width:100%;padding:12px;background:#1a5276;color:#fff;border:none;border-radius:5px;font-size:16px;cursor:pointer}
+button:hover{background:#154360}
+a{color:#1a5276}
+.note{text-align:center;margin-top:15px;font-size:14px;color:#555}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>Internship Application Tracker</h2>
+<form method="post" action="../cs/login">
+<label>Roll Number / Email</label>
+<input type="text" name="uid" required placeholder="e.g. 21CS001 or you@mail.com"/>
+<label>Password</label>
+<input type="password" name="password" required/>
+<button type="submit">Login</button>
+</form>
+<p class="note">New student? <a href="register.html">Register here</a></p>
+<p class="note">Demo: student roll <b>STU001</b> / pass <b>stu123</b> &nbsp;|&nbsp; coordinator <b>COORD01</b> / pass <b>coord123</b></p>
+</div>
+</body>
+</html>
