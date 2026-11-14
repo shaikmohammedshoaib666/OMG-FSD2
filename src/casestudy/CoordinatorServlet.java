@@ -101,6 +101,8 @@ public class CoordinatorServlet extends HttpServlet {
                     publish(con, req);
                 } else if ("update".equals(action)) {
                     updateStatus(con, req);
+                } else if ("delete".equals(action)) {
+                    deleteApplication(con, req);
                 }
             }
         } catch (Exception e) {
@@ -143,6 +145,15 @@ public class CoordinatorServlet extends HttpServlet {
             ps.setString(1, status);
             ps.setString(2, remarks);
             ps.setInt(3, appId);
+            ps.executeUpdate();
+        }
+    }
+
+    private void deleteApplication(Connection con, HttpServletRequest req) throws Exception {
+        int appId = Integer.parseInt(req.getParameter("app_id"));
+        try (PreparedStatement ps = con.prepareStatement(
+                "DELETE FROM applications WHERE id=?")) {
+            ps.setInt(1, appId);
             ps.executeUpdate();
         }
     }

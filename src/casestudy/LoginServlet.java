@@ -37,9 +37,9 @@ public class LoginServlet extends HttpServlet {
             Class.forName("oracle.jdbc.OracleDriver");
             try (Connection con = DriverManager.getConnection(URL, DBUSER, DBPASS);
                  PreparedStatement ps = con.prepareStatement(
-                         "SELECT roll_no, sname, role FROM applicants WHERE (roll_no=? OR email=?) AND password=?")) {
-                ps.setString(1, uid.trim());
-                ps.setString(2, uid.trim());
+                         "SELECT roll_no, sname, role FROM applicants WHERE (UPPER(roll_no)=? OR UPPER(email)=?) AND password=?")) {
+                ps.setString(1, uid.trim().toUpperCase());
+                ps.setString(2, uid.trim().toUpperCase());
                 ps.setString(3, pwd);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
@@ -58,7 +58,8 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            out.println("<html><body><h3 style='color:red'>Database Error: " + e.getMessage() + "</h3></body></html>");
+            out.println("<html><body><h3 style='color:red'>Database Error: " + e.getMessage() + "</h3>"
+                    + "<a href='" + ctx + "/case-study/login.html'>Back to Login</a></body></html>");
             return;
         }
         out.println("<html><body><h3 style='color:red'>Invalid credentials. Please try again.</h3>"

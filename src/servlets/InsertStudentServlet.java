@@ -36,7 +36,6 @@ public class InsertStudentServlet extends HttpServlet {
         String name = req.getParameter("name");
         String branch = req.getParameter("branch");
         int year = Integer.parseInt(req.getParameter("year"));
-        String contextPath = req.getContextPath();
 
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
@@ -50,7 +49,6 @@ public class InsertStudentServlet extends HttpServlet {
                 ps.setString(3, branch);
                 ps.setInt(4, year);
                 ps.executeUpdate();
-                String contextPath = req.getContextPath();
                 out.println("<html><body><h2 style='color:green'>Student inserted successfully!</h2>");
                 out.println("<p>" + name + " added to database.</p>");
             }

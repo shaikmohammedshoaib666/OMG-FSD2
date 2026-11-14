@@ -43,7 +43,11 @@ button{padding:7px 12px;background:#6c3483;color:#fff;border:none;border-radius:
 <option value="Selected">Selected</option>
 </select>
 <input type="text" name="remarks" placeholder="Remarks" style="width:140px"/>
-<button type="submit">Save</button></form></td></tr>
+<button type="submit">Save</button></form>
+<form method="post" action="<%= ctx %>/cs/coord" style="display:inline;margin-left:5px">
+<input type="hidden" name="action" value="delete"/>
+<input type="hidden" name="app_id" value="<%= r[0] %>"/>
+<button type="submit" style="background:#c0392b">Delete</button></form></td></tr>
 <% } } else { %><tr><td colspan="7">No applicants yet.</td></tr><% } %>
 </table>
 </div></div></body></html>
